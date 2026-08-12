@@ -44,12 +44,26 @@ Toggle available for a combined bar: `EBITDA growth = (E1 − E0pf) · x0pf` ins
 
 Returns: `gross MOIC = (Eq1 + distributions) / Eq0pf`; `gross IRR = MOIC^(1/years) − 1` (flows assumed at entry/exit). Figures are gross of fund fees and carry.
 
+## Portfolio repository & IR feed
+
+The tool has a **Portfolio repository**: one row per portfolio company, shown as clickable chips. Click a company for its own bridge; click **PORTFOLIO** for the aggregated bridge (cost 1.00x → portfolio gross MOIC — per-company bridges sum exactly to the aggregate). Ways to fill it:
+
+1. **IR template** — [`NH_Portfolio_Template.xlsx`](NH_Portfolio_Template.xlsx): one row per company (entry platform / add-ons / exit / distributions / dates). Import it directly in the browser via *Import template (.xlsx)* — parsed client-side, nothing uploaded.
+2. **Paste rows** — copy the template's data rows in Excel and paste them into the tool.
+3. **Published feed** — the tool auto-detects [`portfolio.tsv`](portfolio.tsv) hosted next to it and offers *Load repo feed*. To update the central feed, edit that file in this repo (same columns as the template; use *Export TSV* in the tool to generate it).
+4. **Portfolio link** — *Copy portfolio link* encodes the entire repo in the URL, so one Teams message shares the full portfolio view.
+
+The repo persists in each user's browser (`localStorage`); the aggregate MOIC bridge reconciles by construction.
+
 ## Files
 
 | File | Purpose |
 |---|---|
 | `index.html` | The website / offline app — single file, zero dependencies |
 | `app.html` | claude.ai artifact variant, generated from the markers in `index.html` |
+| `NH_Portfolio_Template.xlsx` | IR feed template (one row per portfolio company) |
+| `portfolio.tsv` | Published repo feed the tool auto-detects (sample data) |
+| `NH_Value_Bridge.xlsx` | Standalone Excel version of the bridge + portfolio sheet |
 
 Regenerate `app.html` after editing `index.html`:
 
