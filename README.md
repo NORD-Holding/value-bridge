@@ -7,10 +7,10 @@ Single-file web app that turns BP assumptions (entry → exit) into a memo-ready
 
 ## How to use
 
-1. Fill the assumptions matrix — **green = input, white = calculated**. Columns: Entry (platform) | + Add-ons | = PF entry | Exit. Arrow keys / Enter move between cells; comma or dot decimals both work.
+1. Fill the assumptions matrix – **green = input, white = calculated**. Columns: Entry (platform) | + Add-ons | = PF entry | Exit. Arrow keys / Enter move between cells. Comma or dot decimals both work.
 2. The waterfall, MOIC/IRR stats and bridge table update live. Hover a bar to see its formula.
-3. Export: **Download PNG** (3000×1800, white background) or **Copy PNG** straight into the memo; SVG and Excel-paste (TSV) also available.
-4. **Copy share link** — all inputs are encoded in the URL fragment, so a pasted link reopens the exact case. Nothing is ever uploaded; all computation is client-side.
+3. Export: **Download PNG** (3000×1800, white background) or **Copy PNG** straight into the memo. SVG and Excel-paste (TSV) also available.
+4. **Copy share link** – all inputs are encoded in the URL fragment, so a pasted link reopens the exact case. Nothing is ever uploaded. All computation is client-side.
 
 ## M&A convention (important)
 
@@ -18,13 +18,13 @@ Add-ons are consolidated **pro-forma at entry**:
 
 - acquired sales / EBITDA build on top of the platform entry base,
 - consideration (EV paid) adds to entry EV → **blends the entry multiple down**,
-- the debt-funded part adds to entry net debt; the equity-funded rest counts as invested at entry.
+- the debt-funded part adds to entry net debt. The equity-funded rest counts as invested at entry.
 
-Growth bars are therefore **organic vs the PF base**, and the multiple-rerating bar carries the blend-down arbitrage back to the exit multiple. Enter BP add-on totals in the *+ Add-ons* column — do not bury them in Exit only.
+Growth bars are therefore **organic vs the PF base**, and the multiple-rerating bar carries the blend-down arbitrage back to the exit multiple. Enter BP add-on totals in the *+ Add-ons* column – do not bury them in Exit only.
 
 ## Methodology (ties by construction)
 
-With `S`=sales, `E`=EBITDA, `x`=EV/EBITDA, `N`=net debt, `m`=margin; subscript `0ᴾᶠ` = pro-forma entry, `1` = exit:
+With `S`=sales, `E`=EBITDA, `x`=EV/EBITDA, `N`=net debt, `m`=margin. Subscript `0ᴾᶠ` = pro-forma entry, `1` = exit:
 
 ```
 S0pf = S0 + Sacq          E0pf = E0 + Eacq
@@ -42,24 +42,24 @@ Identity: Eq0pf + all bars = E1·x1 − N1 = Eq1   (checked live — "bridge tie
 
 Toggle available for a combined bar: `EBITDA growth = (E1 − E0pf) · x0pf` instead of the sales × margin split.
 
-Returns: `gross MOIC = (Eq1 + distributions) / Eq0pf`; `gross IRR = MOIC^(1/years) − 1` (flows assumed at entry/exit). Figures are gross of fund fees and carry.
+Returns: `gross MOIC = (Eq1 + distributions) / Eq0pf`.`gross IRR = MOIC^(1/years) − 1` (flows assumed at entry/exit). Figures are gross of fund fees and carry.
 
 ## Portfolio repository & IR feed
 
-The tool has a **Portfolio repository**: one row per portfolio company, shown as clickable chips. Click a company for its own bridge; click **PORTFOLIO** for the aggregated bridge (cost 1.00x → portfolio gross MOIC — per-company bridges sum exactly to the aggregate). Ways to fill it:
+The tool has a **Portfolio repository**: one row per portfolio company, shown as clickable chips. Click a company for its own bridge. Click **PORTFOLIO** for the aggregated bridge (cost 1.00x → portfolio gross MOIC – per-company bridges sum exactly to the aggregate). Ways to fill it:
 
-1. **IR template** — [`NH_Portfolio_Template.xlsx`](NH_Portfolio_Template.xlsx): one row per company (entry platform / add-ons / exit / distributions / dates). Import it directly in the browser via *Import template (.xlsx)* — parsed client-side, nothing uploaded.
-2. **Paste rows** — copy the template's data rows in Excel and paste them into the tool.
-3. **Published feed** — the tool auto-detects [`portfolio.tsv`](portfolio.tsv) hosted next to it and offers *Load repo feed*. To update the central feed, edit that file in this repo (same columns as the template; use *Export TSV* in the tool to generate it).
-4. **Portfolio link** — *Copy portfolio link* encodes the entire repo in the URL, so one Teams message shares the full portfolio view.
+1. **IR template** – [`NH_Portfolio_Template.xlsx`](NH_Portfolio_Template.xlsx): one row per company (entry platform / add-ons / exit / distributions / dates). Import it directly in the browser via *Import template (.xlsx)* – parsed client-side, nothing uploaded.
+2. **Paste rows** – copy the template's data rows in Excel and paste them into the tool.
+3. **Published feed** – the tool auto-detects [`portfolio.tsv`](portfolio.tsv) hosted next to it and offers *Load repo feed*. To update the central feed, edit that file in this repo (same columns as the template, use *Export TSV* in the tool to generate it).
+4. **Portfolio link** – *Copy portfolio link* encodes the entire repo in the URL, so one Teams message shares the full portfolio view.
 
-The repo persists in each user's browser (`localStorage`); the aggregate MOIC bridge reconciles by construction.
+The repo persists in each user's browser (`localStorage`). The aggregate MOIC bridge reconciles by construction.
 
 ## Files
 
 | File | Purpose |
 |---|---|
-| `index.html` | The website / offline app — single file, zero dependencies |
+| `index.html` | The website / offline app – single file, zero dependencies |
 | `app.html` | claude.ai artifact variant, generated from the markers in `index.html` |
 | `NH_Portfolio_Template.xlsx` | IR feed template (one row per portfolio company) |
 | `portfolio.tsv` | Published repo feed the tool auto-detects (sample data) |

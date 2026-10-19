@@ -1,0 +1,21 @@
+name: Punctuation
+
+# House rule for all NORD-Holding repositories: no semicolons, never the long dash (decided 19 October 2026).
+on:
+  pull_request:
+    paths: ["**.md", ".github/scripts/punctuation_check.py", ".github/workflows/punctuation.yml"]
+  push:
+    branches: [main, master]
+    paths: ["**.md", ".github/scripts/punctuation_check.py", ".github/workflows/punctuation.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  punctuation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No semicolons, no long dash in Markdown
+        run: python3 .github/scripts/punctuation_check.py
